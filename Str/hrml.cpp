@@ -39,6 +39,25 @@ int main()
         }
         else
         { // opening tag
+            size_t start = hml_container[i].find('<') + 1;
+            size_t end = hml_container[i].find('>') - 1;
+            string open_tag = hml_container[i].substr(start, end);
+
+            vector<pair<string, string>> attributes;
+            size_t attr_start = start;
+
+            while (true)
+            {
+                size_t attr_name_start = hml_container[i].find(" ", attr_start);
+                if (attr_name_start == string::npos)
+                    break;
+
+                size_t attr_name_end = hml_container[i].find("=") - 1;
+                string attr_name = hml_container[i].substr(attr_name_start, attr_name_end);
+
+                size_t attr_value_start = attr_name_end;
+                size_t attr_value_end   = hml_container[i].find(" ",
+            }
         }
     }
 }
