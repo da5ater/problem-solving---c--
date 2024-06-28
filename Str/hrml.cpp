@@ -13,50 +13,30 @@ using namespace std;
 
 int main()
 {
-    // int N /*number of lines in the HRML program*/, Q /*number of queries*/;
-    // cin >> N >> Q;
-    // string line;
-    // vector<string> hrml_container;
-    // for (int i = 0; i < N; i++)
-    // {
-    //     getline(cin, line);
-    //     if (line.empty())
-    //     {
-    //     }
-    //     else
-    //     {
-    //         hrml_container.push_back(line);
-    //     }
-    // }
+    int N /*number of lines in the HRML program*/, Q /*number of queries*/;
+    cin >> N >> Q;
 
-    // vector<string> q_container;
-
-    // for (int i = 0; i < Q; i++)
-    // {
-    //     getline(cin, line);
-    //     q_container.push_back(line);
-    // };
-
-    // ---------------------------------------------------------------
+    string line;
     vector<string> hrml_container;
-
-    // Option 1: Pre-defined lines (assuming you have the content ready)
-    hrml_container.push_back("<tag1 value = \"HelloWorld\">");
-    hrml_container.push_back("<tag2 name = \"Name1\">");
-    hrml_container.push_back("</tag2>");
-    hrml_container.push_back("</tag1>");
+    for (int i = 0; i < N; i++)
+    {
+        getline(cin, line);
+        if (line.empty())
+        {
+        }
+        else
+        {
+            hrml_container.push_back(line);
+        }
+    }
 
     vector<string> q_container;
 
-    // Define the input strings (replace with your actual input method)
-    string input1 = "<tag1 tag1.tag2~name>";
-    string input2 = "tag1~name>";
-    string input3 = "tag1~value>";
-
-    // Add each input string to the vector
-    q_container.push_back(input1);
-    q_container.push_back(input2);
-    q_container.push_back(input3);
+    for (int i = 0; i < Q; i++)
+    {
+        getline(cin, line);
+        q_container.push_back(line);
+    };
 
     //----------------------------------------------------------------
     map<string, string> attributes; // store tag attribute pairs
@@ -92,15 +72,17 @@ int main()
             attributes[full_tag_name + '~' + key] = value;
         }
     }
-    for (const auto &pair : attributes)
-    {
-        std::cout << pair.first << " :: " << pair.second << '\n';
-    }
 
-    cout << "------------\n";
-
-    for (auto &&i : tag_stack)
+    for (int i = 0; i < q_container.size(); i++)
     {
-        cout << i << endl;
+        auto it = attributes.find(q_container[i]);
+        if (it != attributes.end())
+        {
+            cout << it->second << endl;
+        }
+        else
+        {
+            cout << "Not Found!\n";
+        }
     }
 }
